@@ -1,5 +1,5 @@
 from therefore.writekeys import Output, Layout
-from therefore import usb, readkeys
+from therefore import usb, readkeys, ble
 
 layout_definition = [
     ['`', '1', '2', '3', '4', '5', 'fn'],
@@ -19,17 +19,22 @@ layout_definition = reverse([reverse(row) for row in layout_definition])
 
 output = Output(
     layout=Layout(layout_definition),
-    keyboard=usb.keyboard,
+    keyboard=ble.keyboard,
 )
 
 if __name__ == '__main__':
     previous = set()
     while True:
-        current = set(readkeys.get_pressed_keys())
-        new = current - previous
-        gone = previous - current
+        ble.await_ble()
+        print('connected')
 
-        output.press(*new)
-        output.release(*gone)
+        while ble.ble.connected:
+            current = set(readkeys.get_pressed_keys())
+            new = current - previous
+            gone = previous - current
 
-        previous = current
+            output.press(*new)
+            output.release(*gone)
+
+            previous = current
+        print('disconnected')
