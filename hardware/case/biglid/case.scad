@@ -126,14 +126,4 @@ fudge = 0.01,
   }
 }
 
-case(
-part = "main",
-thickness = 2,
-plate_svg = "plate.optimized.svg",
-case_svg = "case.svg",
-logo_svg = "logo.svg",
-plate_thickness = 2,
-under_plate_clearance = 2,
-overhang = 1,
-fudge = 0.01
-);
+case();
