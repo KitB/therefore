@@ -5,6 +5,8 @@ from adafruit_ble.services.standard.device_info import DeviceInfoService
 from adafruit_ble.services.standard.hid import HIDService
 from adafruit_hid.keyboard import Keyboard
 
+from therefore import mesh
+
 hid = HIDService()
 
 device_info = DeviceInfoService(software_revision=adafruit_ble.__version__,
@@ -22,13 +24,18 @@ def get_keyboard():
 
 
 def advertise():
-    if not ble.connected:
+    if not connected():
         print("advertising")
         ble.start_advertising(advertisement, scan_response)
     else:
         print("already connected")
-        print(ble.connections)
 
 def disconnect():
     for con in ble.connections:
         con.disconnect()
+
+def connected():
+    for connection in ble.connections:
+        if mesh.SubkeypadService not in connection:
+            return True
+    return False

@@ -1,10 +1,6 @@
-import usb_hid
-from adafruit_hid.keyboard import Keyboard
 from adafruit_hid.keycode import Keycode
 
-
 DEFAULT_KEYCODE = Keycode.SPACE
-
 
 lookups = {
     '1': 'one',
@@ -12,7 +8,32 @@ lookups = {
     '3': 'three',
     '4': 'four',
     '5': 'five',
+    '6': 'six',
+    '7': 'seven',
+    '8': 'eight',
+    '9': 'nine',
+    '0': 'zero',
+    '`': 'grave_accent',
+    '\'': 'quote',
+    ';': 'semicolon',
+    ',': 'comma',
+    '.': 'period',
+    '/': 'forward_slash',
+    '[': 'left_bracket',
+    ']': 'right_bracket',
+    '\\': 'backslash',
+    '=': 'equals',
+    '-': 'minus',
+    'ins': 'insert',
+    'del': 'delete',
+    'win': 'gui',
+    'left': 'left_arrow',
+    'right': 'right_arrow',
+    'up': 'up_arrow',
+    'down': 'down_arrow',
+    'caps': 'caps_lock'
 }
+
 
 def lookup_keystr(keystr, default=DEFAULT_KEYCODE):
     keystr = lookups.get(keystr, keystr)
@@ -33,7 +54,6 @@ class Layout:
             return self.table[row][column]
         except IndexError:
             return self.default
-
 
 
 class Output:

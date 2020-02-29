@@ -1,10 +1,12 @@
-import math
 import time
 
 import adafruit_dotstar
 import board
 import busio
-from therefore import usb, readkeys, ble
+import math
+import storage
+
+from therefore import usb, readkeys, ble, mesh
 from therefore.writekeys import Output, Layout
 
 uart = busio.UART(board.TX, board.RX, baudrate=9600, timeout=100)
@@ -27,27 +29,37 @@ else:
     def verbose(msg):
         pass
 
+HAND = storage.getmount('/').label.lower()
+
 layout_definition = [
-    ['`', '1', '2', '3', '4', '5', 'fn'],
-    ['tab', 'q', 'w', 'e', 'r', 't', ' '],
-    ['caps_lock', 'a', 's', 'd', 'f', 'g', ' '],
-    ['shift', 'z', 'x', 'c', 'v', 'b', ' '],
-    ['control', 'win', 'alt', ' ', ' ', ' ', ' '],
-    ['backspace', ' ', 'windows'],
+    ['`', '1', '2', '3', '4', '5', 'del', 'fn', '6', '7', '8', '9', '0', '-'],
+    ['tab', 'q', 'w', 'e', 'r', 't', '\\', '[', 'y', 'u', 'i', 'o', 'p', '='],
+    ['caps', 'a', 's', 'd', 'f', 'g', ' ', ']', 'h', 'j', 'k', 'l', ';', '\''],
+    ['shift', 'z', 'x', 'c', 'v', 'b', 'ins', 'page_up', 'n', 'm', ',', '.', '/', 'right_shift'],
+
+    ['control', ' ', ' ', 'win', 'alt', 'home', 'end', 'page_down', 'right_alt', 'left', 'down', 'up', 'right',
+     'right_control'],
+    [' ', ' ', ' ', ' ', 'backspace', 'fn', 'win', 'win', 'enter', 'spacebar', ' ', ' ', ' ', ' '],
 ]
 
-
-def reverse(l):
-    return list(reversed(l))
-
-
-layout_definition = reverse([reverse(row) for row in layout_definition])
+keypad = readkeys.Keypad(HAND)
 
 led = adafruit_dotstar.DotStar(board.APA102_SCK, board.APA102_MOSI, 1)
-led.brightness = 1
+led.brightness = 0.3
+
+START = 'start'
+MESHING = 'meshing'
+USB = 'usb'
+BLE_CONNECTED = 'ble connected'
+BLE_UNCONNECTED = 'ble unconnected'
+BLE_ADVERTISING = 'ble advertising'
+HERO = 'hero'
+HERO_BLE = 'hero ble'
+HERO_USB = 'hero usb'
+SIDEKICK = 'sidekick'
 
 
-class USBBLESwitchingProcess:
+class MainProcess:
     def __init__(self, usb_keyboard, ble_keyboard, clock_rate=300):
         self.usb_keyboard = usb_keyboard
         self.ble_keyboard = ble_keyboard
@@ -55,9 +67,33 @@ class USBBLESwitchingProcess:
 
         self.previous = set()
         self._state = 'none'
-        self.state = 'start'  # also sets output
+        self.state = START  # also sets output
         self.previous_state = None
         self.advertising = False
+        self.pool = mesh.Negotiations(hand=HAND)
+        self.remote_keys = None
+
+        self.mode = 'ble_only'
+
+    @property
+    def mode(self):
+        return self._mode
+
+    @mode.setter
+    def mode(self, mode):
+        self._mode = mode
+        if mode == 'usb_only':
+            self.output = self.usb_keyboard()
+        elif mode == 'ble_only':
+            self.output = self.ble_keyboard()
+
+
+    def run(self):
+        while True:
+            try:
+                self.act()
+            except OSError:
+                self.state = START
 
     @property
     def state(self):
@@ -68,61 +104,45 @@ class USBBLESwitchingProcess:
         if newval != self._state:
             debug(self._state + ' -> ' + newval)
 
-            if newval == 'ble_connected':
-                self.output = self.ble_keyboard()
-                led[0] = (0, 0, 255)
-            elif newval == 'usb':
-                led[0] = (255, 0, 0)
-                self.output = self.usb_keyboard()
-            elif newval == 'ble_advertising':
-                led[0] = (32, 0, 255)
-            elif newval == 'start':
-                led[0] = (255, 255, 0)
+            if newval == BLE_CONNECTED:
+                led[0] = (0, 0, 32)
+            elif newval == USB:
+                led[0] = (32, 0, 0)
+            elif newval == BLE_ADVERTISING:
+                led[0] = (4, 0, 32)
+            elif newval == START:
+                led[0] = (32, 32, 0)
 
             self._state = newval
 
-    def _check_transitions(self):
-        # USB connection overrides everything
-        if self.state == 'start':
-            if usb.connected():
-                self.state = 'usb'
-            else:
-                self.state = 'ble_unconnected'
-        elif self.state != 'usb':
-            if usb.connected():
-                self.state = 'usb'
-
     def act(self):
         s = self.state
-        if s == 'usb':
-            self.handle_usb()
-        elif s == 'ble_unconnected':
-            self.handle_ble_unconnected()
-        elif s == 'ble_advertising':
-            self.handle_ble_advertising()
-        elif s == 'ble_connected':
-            self.handle_ble_connected()
+        getattr(self, 'handle_' + self.state.replace(' ', '_'))()
 
-    def handle_usb(self):
-        self.handle_keypresses()
-        self.output.press()
+    def handle_start(self):
+        self.state = MESHING
 
-    def handle_ble_connected(self):
-        if not ble.ble.connected:
-            self.state = 'start'
-            return
-        self.handle_keypresses()
+    def handle_meshing(self):
+        self.pool.connect()
+        self.uart = self.pool.uart
+        self.role = self.pool.my_role
 
-    def handle_ble_unconnected(self):
-        ble.advertise()
-        self.state = 'ble_advertising'
+        if self.role == 'batman':
+            self.state = HERO
+        elif self.role == 'robin':
+            self.state = SIDEKICK
 
-    def handle_ble_advertising(self):
-        if ble.ble.connected:
-            self.state = 'ble_connected'
+    def handle_hero(self):
+        if self.mode == 'usb_only':
+            self.state = USB
+        elif self.mode == 'ble_only':
+            self.state = BLE_UNCONNECTED
 
     def handle_keypresses(self):
-        current = set(readkeys.get_pressed_keys())
+        local_pressed = set(keypad.pressed)
+        remote_pressed = set(self.uart.keys_pressed)
+        current = set(local_pressed) | set(remote_pressed)
+
         new = current - self.previous
         gone = self.previous - current
 
@@ -137,40 +157,31 @@ class USBBLESwitchingProcess:
 
         if new | gone:
             verbose('Current: %s' % current)
+            print(remote_pressed)
 
         self.previous = current
 
-    def run(self):
-        while True:
-            # following two lines may change state
-            self._check_transitions()
-            try:
-                self.act()
-            except OSError:
-                self.state = 'start'
+    def handle_sidekick(self):
+        self.uart.keys_pressed = keypad.pressed
 
-    def _set_led_state(self):
-        s = self.state
-        led.brightness = 1
+    def handle_usb(self):
+        self.handle_keypresses()
+        self.output.press()
 
-        if s == 'ble_unconnected':
-            # make that sucker smooth blink
-            brightness = 0.2 + (0.8 * ((1 + math.sin(time.monotonic() * 10)) / 2))
-            red = int(round(32 * brightness))
-            blue = int(round(255 * brightness))
-            led[0] = (red, 0, blue)
-
-        if self.state == self.previous_state:
+    def handle_ble_connected(self):
+        if not ble.ble.connected:
+            self.state = START
             return
+        self.handle_keypresses()
 
-        debug(self.state)
+    def handle_ble_unconnected(self):
+        ble.advertise()
+        self.state = BLE_ADVERTISING
 
-        if s == 'start':
-            led[0] = (255, 255, 255)
-        elif s == 'usb':
-            led[0] = (255, 255, 255)
-        elif s == 'ble_connected':
-            led[0] = (0, 0, 255)
+    def handle_ble_advertising(self):
+        if ble.connected():
+            self.state = BLE_CONNECTED
+
 
 
 if __name__ == '__main__':
@@ -192,5 +203,5 @@ if __name__ == '__main__':
 
 
     while True:
-        runner = USBBLESwitchingProcess(get_usb_keyboard, get_ble_keyboard)
+        runner = MainProcess(get_usb_keyboard, get_ble_keyboard)
         runner.run()
