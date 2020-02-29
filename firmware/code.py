@@ -6,8 +6,8 @@ import busio
 import math
 import storage
 
-from therefore import usb, readkeys, ble, mesh
-from therefore.writekeys import Output, Layout
+from therefore import usb, readkeys, ble, mesh, layout
+from therefore.writekeys import Output, Layout, SystemKeyPressed
 
 uart = busio.UART(board.TX, board.RX, baudrate=9600, timeout=100)
 
@@ -31,17 +31,6 @@ else:
 
 HAND = storage.getmount('/').label.lower()
 
-layout_definition = [
-    ['`', '1', '2', '3', '4', '5', 'del', 'fn', '6', '7', '8', '9', '0', '-'],
-    ['tab', 'q', 'w', 'e', 'r', 't', '\\', '[', 'y', 'u', 'i', 'o', 'p', '='],
-    ['caps', 'a', 's', 'd', 'f', 'g', ' ', ']', 'h', 'j', 'k', 'l', ';', '\''],
-    ['shift', 'z', 'x', 'c', 'v', 'b', 'ins', 'page_up', 'n', 'm', ',', '.', '/', 'right_shift'],
-
-    ['control', ' ', ' ', 'win', 'alt', 'home', 'end', 'page_down', 'right_alt', 'left', 'down', 'up', 'right',
-     'right_control'],
-    [' ', ' ', ' ', ' ', 'backspace', 'fn', 'win', 'win', 'enter', 'spacebar', ' ', ' ', ' ', ' '],
-]
-
 keypad = readkeys.Keypad(HAND)
 
 led = adafruit_dotstar.DotStar(board.APA102_SCK, board.APA102_MOSI, 1)
@@ -49,6 +38,7 @@ led.brightness = 0.3
 
 START = 'start'
 MESHING = 'meshing'
+MESH_CONNECTED = 'mesh connected'
 USB = 'usb'
 BLE_CONNECTED = 'ble connected'
 BLE_UNCONNECTED = 'ble unconnected'
@@ -73,7 +63,7 @@ class MainProcess:
         self.pool = mesh.Negotiations(hand=HAND)
         self.remote_keys = None
 
-        self.mode = 'ble_only'
+        self.mode = 'usb_only'
 
     @property
     def mode(self):
@@ -126,7 +116,9 @@ class MainProcess:
         self.pool.connect()
         self.uart = self.pool.uart
         self.role = self.pool.my_role
+        self.state = MESH_CONNECTED
 
+    def handle_mesh_connected(self):
         if self.role == 'batman':
             self.state = HERO
         elif self.role == 'robin':
@@ -149,7 +141,10 @@ class MainProcess:
         if new:
             verbose('New: %s' % new)
             for kc in new:
-                self.output.press(kc)
+                try:
+                    self.output.press(kc)
+                except SystemKeyPressed as e:
+                    self.handle_syskey(e.keycode)
         if gone:
             verbose('Gone: %s' % gone)
             for kc in gone:
@@ -157,7 +152,6 @@ class MainProcess:
 
         if new | gone:
             verbose('Current: %s' % current)
-            print(remote_pressed)
 
         self.previous = current
 
@@ -166,7 +160,6 @@ class MainProcess:
 
     def handle_usb(self):
         self.handle_keypresses()
-        self.output.press()
 
     def handle_ble_connected(self):
         if not ble.ble.connected:
@@ -182,10 +175,17 @@ class MainProcess:
         if ble.connected():
             self.state = BLE_CONNECTED
 
+    def handle_syskey(self, keycode):
+        if keycode == 'switch':
+            if self.mode == 'usb_only':
+                self.mode = 'ble_only'
+            elif self.mode == 'ble_only':
+                self.mode = 'usb_only'
+            self.state = MESH_CONNECTED
 
 
 if __name__ == '__main__':
-    layout = Layout(layout_definition)
+    layout = Layout(layout.layout)  # layout
 
 
     def get_ble_keyboard():

@@ -8,6 +8,7 @@ from adafruit_ble.services import Service
 from adafruit_ble.services.nordic import UARTService
 from adafruit_ble.uuid import VendorUUID
 
+# TODO: encrypt the connection
 
 class BoundPressedKeySet:
     def __init__(self, bound_keyset):
@@ -71,7 +72,6 @@ class Negotiations:
     def connect_right(self):
         print('searching')
         for ad in radio.start_scan(ProvideServicesAdvertisement):
-            print(ad)
             if SubkeypadService in ad.services:
                 radio.connect(ad)
                 break
@@ -122,73 +122,3 @@ class UARTWrapper:
         b = struct.pack(fmt, n, *[v for loc in locs for v in loc])
         self.uart.write(b)
 
-combos = [
-    [],
-    [(1, 1)],
-    [(1, 1), (3, 5)],
-    [(1, 0)],
-]
-
-def run(hand):
-    current = 0
-
-    n = Negotiations(hand=hand)
-
-    while True:
-        print('connecting')
-        n.connect()
-        print('connected')
-
-        while n.connection.connected:
-            if hand == 'left':
-                current = (current + 1) % len(combos)
-                n.skp.key_set.pressed = combos[current]
-                n.skp.left_state = current
-                print(n.skp.right_state)
-            elif hand == 'right':
-                print('-' * 80)
-                print('Pressed: %s' % n.skp.key_set.pressed)
-                print('Left: %d\tRight: %d' % (n.skp.left_state, n.skp.right_state))
-                n.skp.right_state = n.skp.left_state
-            time.sleep(0.1)
-
-        print('lost connection')
-
-
-def send():
-    global current
-
-    while True:
-        radio.start_advertising(provide_ad)
-        while not radio.connected:
-            pass
-        radio.stop_advertising()
-        print('client connected')
-
-        print('client lost')
-
-
-def recv():
-    while True:
-        print('connecting...')
-        for ad in radio.start_scan(ProvideServicesAdvertisement):
-            print('Services: %s' % ad.services)
-            if SubkeypadService not in ad.services:
-                continue
-            radio.connect(ad)
-            break
-
-        print('connected')
-
-        while radio.connected:
-            print(radio.connections[0][SubkeypadService].key_set.pressed)
-            time.sleep(0.1)
-
-        # while radio.connected and any(SubkeypadService in connection for connection in radio.connections):
-        #
-        #     for connection in radio.connections:
-        #         if SubkeypadService not in connection:
-        #             continue
-        #
-        #         print(connection[SubkeypadService].key_set.pressed)
-        print('lost connection')
