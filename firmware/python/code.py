@@ -33,17 +33,18 @@ keypad = readkeys.Keypad(HAND)
 led = adafruit_dotstar.DotStar(board.APA102_SCK, board.APA102_MOSI, 1)
 led.brightness = 0.3
 
-START = 'start'
-MESHING = 'meshing'
-MESH_CONNECTED = 'mesh connected'
-USB = 'usb'
-BLE_CONNECTED = 'ble connected'
-BLE_UNCONNECTED = 'ble unconnected'
-BLE_ADVERTISING = 'ble advertising'
-HERO = 'hero'
-HERO_BLE = 'hero ble'
-HERO_USB = 'hero usb'
-SIDEKICK = 'sidekick'
+# this would be an enum but circuitpython doesn't implement them.
+class State:
+    none = 'none'
+    start = 'start'
+    meshing = 'meshing'
+    mesh_connected = 'mesh connected'
+    usb = 'usb'
+    ble_connected = 'ble connected'
+    ble_unconnected = 'ble unconnected'
+    ble_advertising = 'ble advertising'
+    hero = 'hero'
+    sidekick = 'sidekick'
 
 
 class MainProcess:
@@ -53,14 +54,41 @@ class MainProcess:
         self.clock_rate = clock_rate
 
         self.previous = set()
-        self._state = 'none'
-        self.state = START  # also sets output
+        self._state = State.none
         self.previous_state = None
+        self.state = State.start  # also sets output
         self.advertising = False
         self.pool = mesh.Negotiations(hand=HAND)
         self.remote_keys = None
 
         self.mode = 'usb_only'
+
+    def run(self):
+        while True:
+            try:
+                self.act()
+            except OSError:
+                self.state = State.start
+
+    @property
+    def state(self) -> str:
+        return self._state
+
+    @state.setter
+    def state(self, newval: str):
+        if newval != self._state:
+            debug(self._state + ' -> ' + newval)
+
+            if newval == State.ble_connected:
+                led[0] = (0, 0, 32)
+            elif newval == State.usb:
+                led[0] = (32, 0, 0)
+            elif newval == State.ble_advertising:
+                led[0] = (4, 0, 32)
+            elif newval == State.start:
+                led[0] = (32, 32, 0)
+
+            self._state = newval
 
     @property
     def mode(self):
@@ -74,58 +102,30 @@ class MainProcess:
         elif mode == 'ble_only':
             self.output = self.ble_keyboard()
 
-
-    def run(self):
-        while True:
-            try:
-                self.act()
-            except OSError:
-                self.state = START
-
-    @property
-    def state(self):
-        return self._state
-
-    @state.setter
-    def state(self, newval):
-        if newval != self._state:
-            debug(self._state + ' -> ' + newval)
-
-            if newval == BLE_CONNECTED:
-                led[0] = (0, 0, 32)
-            elif newval == USB:
-                led[0] = (32, 0, 0)
-            elif newval == BLE_ADVERTISING:
-                led[0] = (4, 0, 32)
-            elif newval == START:
-                led[0] = (32, 32, 0)
-
-            self._state = newval
-
     def act(self):
         s = self.state
         getattr(self, 'handle_' + self.state.replace(' ', '_'))()
 
     def handle_start(self):
-        self.state = MESHING
+        self.state = State.meshing
 
     def handle_meshing(self):
         self.pool.connect()
         self.uart = self.pool.uart
         self.role = self.pool.my_role
-        self.state = MESH_CONNECTED
+        self.state = State.mesh_connected
 
     def handle_mesh_connected(self):
         if self.role == 'batman':
-            self.state = HERO
+            self.state = State.hero
         elif self.role == 'robin':
-            self.state = SIDEKICK
+            self.state = State.sidekick
 
     def handle_hero(self):
         if self.mode == 'usb_only':
-            self.state = USB
+            self.state = State.usb
         elif self.mode == 'ble_only':
-            self.state = BLE_UNCONNECTED
+            self.state = State.ble_unconnected
 
     def handle_keypresses(self):
         local_pressed = set(keypad.pressed)
@@ -160,17 +160,17 @@ class MainProcess:
 
     def handle_ble_connected(self):
         if not ble.ble.connected:
-            self.state = START
+            self.state = State.start
             return
         self.handle_keypresses()
 
     def handle_ble_unconnected(self):
         ble.advertise()
-        self.state = BLE_ADVERTISING
+        self.state = State.ble_advertising
 
     def handle_ble_advertising(self):
         if ble.connected():
-            self.state = BLE_CONNECTED
+            self.state = State.ble_connected
 
     def handle_syskey(self, keycode):
         if keycode == 'switch':
@@ -178,7 +178,7 @@ class MainProcess:
                 self.mode = 'ble_only'
             elif self.mode == 'ble_only':
                 self.mode = 'usb_only'
-            self.state = MESH_CONNECTED
+            self.state = State.mesh_connected
 
 
 if __name__ == '__main__':
