@@ -1,12 +1,12 @@
-import adafruit_ble as ble
 import struct
-import time
+
+import adafruit_ble as ble
 from adafruit_ble.advertising.standard import ProvideServicesAdvertisement
 from adafruit_ble.characteristics import ComplexCharacteristic
 from adafruit_ble.characteristics.int import Uint8Characteristic
-from adafruit_ble.services import Service
 from adafruit_ble.services.nordic import UARTService
 from adafruit_ble.uuid import VendorUUID
+
 
 # TODO: encrypt the connection
 
@@ -100,6 +100,7 @@ class Negotiations:
         elif self.hand == 'left':
             self.connect_left()
 
+
 class UARTWrapper:
     def __init__(self, uart):
         self.uart = uart
@@ -113,6 +114,7 @@ class UARTWrapper:
         def _gen():
             for i in range(0, len(bites), 2):
                 yield (bites[i], bites[i + 1])
+
         return list(_gen())
 
     @keys_pressed.setter
@@ -121,4 +123,3 @@ class UARTWrapper:
         fmt = 'B' * ((2 * n) + 1)
         b = struct.pack(fmt, n, *[v for loc in locs for v in loc])
         self.uart.write(b)
-

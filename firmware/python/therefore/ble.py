@@ -5,7 +5,7 @@ from adafruit_ble.services.standard.device_info import DeviceInfoService
 from adafruit_ble.services.standard.hid import HIDService
 from adafruit_hid.keyboard import Keyboard
 
-from therefore import mesh
+from . import mesh
 
 hid = HIDService()
 

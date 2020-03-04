@@ -1,9 +1,6 @@
-import time
-
 import adafruit_dotstar
 import board
 import busio
-import math
 import storage
 
 from therefore import usb, readkeys, ble, mesh, layout

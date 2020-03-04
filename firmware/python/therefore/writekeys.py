@@ -2,6 +2,7 @@ from adafruit_hid.keycode import Keycode
 
 DEFAULT_KEYCODE = Keycode.SPACE
 
+# TODO: per-country lookups
 lookups = {
     '1': 'one',
     '2': 'two',
@@ -21,7 +22,9 @@ lookups = {
     '/': 'forward_slash',
     '[': 'left_bracket',
     ']': 'right_bracket',
-    '\\': 'backslash',
+    '#': 'pound',
+    '~': ['shift', 'pound'],
+    '\\': 'keypad_backslash',
     '=': 'equals',
     '-': 'minus',
     'ins': 'insert',
@@ -37,21 +40,13 @@ lookups = {
     '_': ['shift', '-'],
 }
 
-def lookup_keystr(keystr, default=DEFAULT_KEYCODE):
-    keystr = lookups.get(keystr, keystr)
-    try:
-        return getattr(Keycode, keystr.upper())
-    except AttributeError:
-        if keystr in syscodes:
-            return keystr
-        return default
-
 
 def parse_syskey(keystr):
     keystr = keystr.replace(')', '')
     command, _, argstr = keystr[1:].partition('(')
     args = argstr.split(',')
-    return (command, args)
+    return command, args
+
 
 def parse(keystr):
     # check for defined aliases
@@ -88,14 +83,15 @@ class Layout:
     """
     Converts (column, row) locations into actionable objects based on a given layout definition
     """
+
     def __init__(self, definition):
         self.layers = {name: Layer(value) for name, value in definition['layers'].items()}
         self.layer_stack = ['default']
 
     def __getitem__(self, loc):
-        out = ('t',[''])
+        out = ('t', [''])
         stack_pos = -1
-        while out == ('t',['']):
+        while out == ('t', ['']):
             out = self.layers[self.layer_stack[stack_pos]][loc]
             stack_pos -= 1
         return out
