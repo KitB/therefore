@@ -1,3 +1,4 @@
+from adafruit_hid.keyboard import Keyboard
 from adafruit_hid.keycode import Keycode
 
 DEFAULT_KEYCODE = Keycode.SPACE
@@ -29,6 +30,7 @@ lookups = {
     '-': 'minus',
     'ins': 'insert',
     'del': 'delete',
+    'esc': 'escape',
     'win': 'gui',
     'left': 'left_arrow',
     'right': 'right_arrow',
@@ -140,9 +142,11 @@ class Output:
     def handle_system_press(self, command, args):
         if command == 'to':
             self.layout.push(args[0])
+            self.keyboard.release_all()
         else:
             raise SystemKeyPressed(command)
 
     def handle_system_release(self, command, args):
         if command == 'to':
             self.layout.pop()
+            self.keyboard.release_all()
