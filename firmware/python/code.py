@@ -1,10 +1,12 @@
-import adafruit_dotstar
 import board
 import busio
 import storage
+import neopixel
 
 from therefore import usb, readkeys, ble, mesh, layout
 from therefore.writekeys import Output, Layout, SystemKeyPressed
+
+from _bleio import ConnectionError
 
 uart = busio.UART(board.TX, board.RX, baudrate=9600, timeout=100)
 
@@ -30,8 +32,10 @@ HAND = storage.getmount('/').label.lower()
 
 keypad = readkeys.Keypad(HAND)
 
-led = adafruit_dotstar.DotStar(board.APA102_SCK, board.APA102_MOSI, 1)
-led.brightness = 0.3
+led = neopixel.NeoPixel(board.NEOPIXEL, 1, pixel_order=neopixel.GRB)
+led.brightness = 0.01
+
+# TODO: battery charge tracking
 
 # this would be an enum but circuitpython doesn't implement them.
 class State:
@@ -67,7 +71,10 @@ class MainProcess:
         while True:
             try:
                 self.act()
-            except OSError:
+            except (OSError, IndexError, ConnectionError, ValueError) as e:
+                import sys
+                print('=' * 80)
+                sys.print_exception(e)
                 self.state = State.start
 
     @property
@@ -80,13 +87,17 @@ class MainProcess:
             debug(self._state + ' -> ' + newval)
 
             if newval == State.ble_connected:
-                led[0] = (0, 0, 32)
+                led[0] = (0, 0, 255)
+                self.output = self.ble_keyboard()
             elif newval == State.usb:
-                led[0] = (32, 0, 0)
+                led[0] = 0x00_FF_00
+                self.output = self.usb_keyboard()
             elif newval == State.ble_advertising:
-                led[0] = (4, 0, 32)
+                led[0] = (32, 0, 255)
             elif newval == State.start:
                 led[0] = (32, 32, 0)
+            elif newval == State.sidekick:
+                led[0] = 0xFF_FF_FF
 
             self._state = newval
 
@@ -97,10 +108,6 @@ class MainProcess:
     @mode.setter
     def mode(self, mode):
         self._mode = mode
-        if mode == 'usb_only':
-            self.output = self.usb_keyboard()
-        elif mode == 'ble_only':
-            self.output = self.ble_keyboard()
 
     def act(self):
         s = self.state
@@ -200,5 +207,15 @@ if __name__ == '__main__':
 
 
     while True:
-        runner = MainProcess(get_usb_keyboard, get_ble_keyboard)
-        runner.run()
+        try:
+            runner = MainProcess(get_usb_keyboard, get_ble_keyboard)
+        except OSError as e:
+            led[0] = (255, 255, 255, 1)
+            break
+        try:
+            runner.run()
+        except OSError as e:
+            led[0] = (255, 0, 255, 1)
+
+    while True:
+        pass
