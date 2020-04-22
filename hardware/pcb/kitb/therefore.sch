@@ -1,0 +1,1406 @@
+EESchema Schematic File Version 4
+LIBS:therefore-cache
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L therefore:switch K1.1
+U 1 1 5E5D3275
+P 4050 2500
+F 0 "K1.1" H 4050 2400 50  0000 C CNN
+F 1 "switch" H 3900 2400 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.50u_PCB_ra" H 3650 2750 50  0001 C CNN
+F 3 "" H 3650 2750 50  0001 C CNN
+	1    4050 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D1.1
+U 1 1 5E5D33D4
+P 4050 2750
+F 0 "D1.1" H 3900 2800 50  0000 C CNN
+F 1 "D" H 4150 2800 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 4050 2750 50  0001 C CNN
+F 3 "~" H 4050 2750 50  0001 C CNN
+	1    4050 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4250 2500 4250 2750
+Wire Wire Line
+	4250 2750 4200 2750
+Wire Wire Line
+	3850 2500 3850 2350
+Wire Wire Line
+	3900 2750 3750 2750
+$Comp
+L therefore:switch K1.2
+U 1 1 5E5D36C2
+P 4650 2500
+F 0 "K1.2" H 4650 2400 50  0000 C CNN
+F 1 "switch" H 4500 2400 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 4250 2750 50  0001 C CNN
+F 3 "" H 4250 2750 50  0001 C CNN
+	1    4650 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D1.2
+U 1 1 5E5D36C9
+P 4650 2750
+F 0 "D1.2" H 4500 2800 50  0000 C CNN
+F 1 "D" H 4750 2800 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 4650 2750 50  0001 C CNN
+F 3 "~" H 4650 2750 50  0001 C CNN
+	1    4650 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4850 2500 4850 2750
+Wire Wire Line
+	4850 2750 4800 2750
+Wire Wire Line
+	4450 2500 4450 2350
+Wire Wire Line
+	4500 2750 4350 2750
+$Comp
+L therefore:switch K1.3
+U 1 1 5E5D3797
+P 5250 2500
+F 0 "K1.3" H 5250 2400 50  0000 C CNN
+F 1 "switch" H 5100 2400 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 4850 2750 50  0001 C CNN
+F 3 "" H 4850 2750 50  0001 C CNN
+	1    5250 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D1.3
+U 1 1 5E5D379E
+P 5250 2750
+F 0 "D1.3" H 5100 2800 50  0000 C CNN
+F 1 "D" H 5350 2800 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 5250 2750 50  0001 C CNN
+F 3 "~" H 5250 2750 50  0001 C CNN
+	1    5250 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5450 2500 5450 2750
+Wire Wire Line
+	5450 2750 5400 2750
+Wire Wire Line
+	5050 2500 5050 2350
+Wire Wire Line
+	5100 2750 4950 2750
+$Comp
+L therefore:switch K1.4
+U 1 1 5E5D37A9
+P 5850 2500
+F 0 "K1.4" H 5850 2400 50  0000 C CNN
+F 1 "switch" H 5700 2400 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 5450 2750 50  0001 C CNN
+F 3 "" H 5450 2750 50  0001 C CNN
+	1    5850 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D1.4
+U 1 1 5E5D37B0
+P 5850 2750
+F 0 "D1.4" H 5700 2800 50  0000 C CNN
+F 1 "D" H 5950 2800 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 5850 2750 50  0001 C CNN
+F 3 "~" H 5850 2750 50  0001 C CNN
+	1    5850 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6050 2500 6050 2750
+Wire Wire Line
+	6050 2750 6000 2750
+Wire Wire Line
+	5650 2500 5650 2350
+Wire Wire Line
+	5700 2750 5550 2750
+$Comp
+L therefore:switch K1.5
+U 1 1 5E5D4186
+P 6450 2500
+F 0 "K1.5" H 6450 2400 50  0000 C CNN
+F 1 "switch" H 6300 2400 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 6050 2750 50  0001 C CNN
+F 3 "" H 6050 2750 50  0001 C CNN
+	1    6450 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D1.5
+U 1 1 5E5D418D
+P 6450 2750
+F 0 "D1.5" H 6300 2800 50  0000 C CNN
+F 1 "D" H 6550 2800 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 6450 2750 50  0001 C CNN
+F 3 "~" H 6450 2750 50  0001 C CNN
+	1    6450 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6650 2500 6650 2750
+Wire Wire Line
+	6650 2750 6600 2750
+Wire Wire Line
+	6250 2500 6250 2350
+Wire Wire Line
+	6300 2750 6150 2750
+$Comp
+L therefore:switch K1.6
+U 1 1 5E5D4198
+P 7050 2500
+F 0 "K1.6" H 7050 2400 50  0000 C CNN
+F 1 "switch" H 6900 2400 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 6650 2750 50  0001 C CNN
+F 3 "" H 6650 2750 50  0001 C CNN
+	1    7050 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D1.6
+U 1 1 5E5D419F
+P 7050 2750
+F 0 "D1.6" H 6900 2800 50  0000 C CNN
+F 1 "D" H 7150 2800 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 7050 2750 50  0001 C CNN
+F 3 "~" H 7050 2750 50  0001 C CNN
+	1    7050 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7250 2500 7250 2750
+Wire Wire Line
+	7250 2750 7200 2750
+Wire Wire Line
+	6850 2500 6850 2350
+Wire Wire Line
+	6900 2750 6750 2750
+$Comp
+L therefore:switch K1.7
+U 1 1 5E5D41AA
+P 7650 2500
+F 0 "K1.7" H 7650 2400 50  0000 C CNN
+F 1 "switch" H 7500 2400 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 7250 2750 50  0001 C CNN
+F 3 "" H 7250 2750 50  0001 C CNN
+	1    7650 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D1.7
+U 1 1 5E5D41B1
+P 7650 2750
+F 0 "D1.7" H 7500 2800 50  0000 C CNN
+F 1 "D" H 7750 2800 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 7650 2750 50  0001 C CNN
+F 3 "~" H 7650 2750 50  0001 C CNN
+	1    7650 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7850 2500 7850 2750
+Wire Wire Line
+	7850 2750 7800 2750
+Wire Wire Line
+	7450 2500 7450 2350
+Wire Wire Line
+	7500 2750 7350 2750
+$Comp
+L therefore:switch K2.1
+U 1 1 5E5D558A
+P 4050 3100
+F 0 "K2.1" H 4050 3000 50  0000 C CNN
+F 1 "switch" H 3900 3000 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.50u_PCB_ra" H 3650 3350 50  0001 C CNN
+F 3 "" H 3650 3350 50  0001 C CNN
+	1    4050 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D2.1
+U 1 1 5E5D5591
+P 4050 3350
+F 0 "D2.1" H 3900 3400 50  0000 C CNN
+F 1 "D" H 4150 3400 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 4050 3350 50  0001 C CNN
+F 3 "~" H 4050 3350 50  0001 C CNN
+	1    4050 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4250 3100 4250 3350
+Wire Wire Line
+	4250 3350 4200 3350
+Wire Wire Line
+	3850 3100 3850 2950
+Wire Wire Line
+	3900 3350 3750 3350
+$Comp
+L therefore:switch K2.2
+U 1 1 5E5D559C
+P 4650 3100
+F 0 "K2.2" H 4650 3000 50  0000 C CNN
+F 1 "switch" H 4500 3000 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 4250 3350 50  0001 C CNN
+F 3 "" H 4250 3350 50  0001 C CNN
+	1    4650 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D2.2
+U 1 1 5E5D55A3
+P 4650 3350
+F 0 "D2.2" H 4500 3400 50  0000 C CNN
+F 1 "D" H 4750 3400 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 4650 3350 50  0001 C CNN
+F 3 "~" H 4650 3350 50  0001 C CNN
+	1    4650 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4850 3100 4850 3350
+Wire Wire Line
+	4850 3350 4800 3350
+Wire Wire Line
+	4450 3100 4450 2950
+Wire Wire Line
+	4500 3350 4350 3350
+$Comp
+L therefore:switch K2.3
+U 1 1 5E5D55AE
+P 5250 3100
+F 0 "K2.3" H 5250 3000 50  0000 C CNN
+F 1 "switch" H 5100 3000 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 4850 3350 50  0001 C CNN
+F 3 "" H 4850 3350 50  0001 C CNN
+	1    5250 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D2.3
+U 1 1 5E5D55B5
+P 5250 3350
+F 0 "D2.3" H 5100 3400 50  0000 C CNN
+F 1 "D" H 5350 3400 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 5250 3350 50  0001 C CNN
+F 3 "~" H 5250 3350 50  0001 C CNN
+	1    5250 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5450 3100 5450 3350
+Wire Wire Line
+	5450 3350 5400 3350
+Wire Wire Line
+	5050 3100 5050 2950
+Wire Wire Line
+	5100 3350 4950 3350
+$Comp
+L therefore:switch K2.4
+U 1 1 5E5D55C0
+P 5850 3100
+F 0 "K2.4" H 5850 3000 50  0000 C CNN
+F 1 "switch" H 5700 3000 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 5450 3350 50  0001 C CNN
+F 3 "" H 5450 3350 50  0001 C CNN
+	1    5850 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D2.4
+U 1 1 5E5D55C7
+P 5850 3350
+F 0 "D2.4" H 5700 3400 50  0000 C CNN
+F 1 "D" H 5950 3400 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 5850 3350 50  0001 C CNN
+F 3 "~" H 5850 3350 50  0001 C CNN
+	1    5850 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6050 3100 6050 3350
+Wire Wire Line
+	6050 3350 6000 3350
+Wire Wire Line
+	5650 3100 5650 2950
+Wire Wire Line
+	5700 3350 5550 3350
+$Comp
+L therefore:switch K2.5
+U 1 1 5E5D55D2
+P 6450 3100
+F 0 "K2.5" H 6450 3000 50  0000 C CNN
+F 1 "switch" H 6300 3000 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 6050 3350 50  0001 C CNN
+F 3 "" H 6050 3350 50  0001 C CNN
+	1    6450 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D2.5
+U 1 1 5E5D55D9
+P 6450 3350
+F 0 "D2.5" H 6300 3400 50  0000 C CNN
+F 1 "D" H 6550 3400 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 6450 3350 50  0001 C CNN
+F 3 "~" H 6450 3350 50  0001 C CNN
+	1    6450 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6650 3100 6650 3350
+Wire Wire Line
+	6650 3350 6600 3350
+Wire Wire Line
+	6250 3100 6250 2950
+Wire Wire Line
+	6300 3350 6150 3350
+$Comp
+L therefore:switch K2.6
+U 1 1 5E5D55E4
+P 7050 3100
+F 0 "K2.6" H 7050 3000 50  0000 C CNN
+F 1 "switch" H 6900 3000 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 6650 3350 50  0001 C CNN
+F 3 "" H 6650 3350 50  0001 C CNN
+	1    7050 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D2.6
+U 1 1 5E5D55EB
+P 7050 3350
+F 0 "D2.6" H 6900 3400 50  0000 C CNN
+F 1 "D" H 7150 3400 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 7050 3350 50  0001 C CNN
+F 3 "~" H 7050 3350 50  0001 C CNN
+	1    7050 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7250 3100 7250 3350
+Wire Wire Line
+	7250 3350 7200 3350
+Wire Wire Line
+	6850 3100 6850 2950
+Wire Wire Line
+	6900 3350 6750 3350
+$Comp
+L therefore:switch K2.7
+U 1 1 5E5D55F6
+P 7650 3100
+F 0 "K2.7" H 7650 3000 50  0000 C CNN
+F 1 "switch" H 7500 3000 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.50u_PCB" H 7250 3350 50  0001 C CNN
+F 3 "" H 7250 3350 50  0001 C CNN
+	1    7650 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D2.7
+U 1 1 5E5D55FD
+P 7650 3350
+F 0 "D2.7" H 7500 3400 50  0000 C CNN
+F 1 "D" H 7750 3400 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 7650 3350 50  0001 C CNN
+F 3 "~" H 7650 3350 50  0001 C CNN
+	1    7650 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7850 3100 7850 3350
+Wire Wire Line
+	7850 3350 7800 3350
+Wire Wire Line
+	7450 3100 7450 2950
+Wire Wire Line
+	7500 3350 7350 3350
+$Comp
+L therefore:switch K3.1
+U 1 1 5E5DB3EA
+P 4050 3700
+F 0 "K3.1" H 4050 3600 50  0000 C CNN
+F 1 "switch" H 3900 3600 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.50u_PCB_ra" H 3650 3950 50  0001 C CNN
+F 3 "" H 3650 3950 50  0001 C CNN
+	1    4050 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D3.1
+U 1 1 5E5DB3F1
+P 4050 3950
+F 0 "D3.1" H 3900 4000 50  0000 C CNN
+F 1 "D" H 4150 4000 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 4050 3950 50  0001 C CNN
+F 3 "~" H 4050 3950 50  0001 C CNN
+	1    4050 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4250 3700 4250 3950
+Wire Wire Line
+	4250 3950 4200 3950
+Wire Wire Line
+	3850 3700 3850 3550
+Wire Wire Line
+	3900 3950 3750 3950
+$Comp
+L therefore:switch K3.2
+U 1 1 5E5DB3FC
+P 4650 3700
+F 0 "K3.2" H 4650 3600 50  0000 C CNN
+F 1 "switch" H 4500 3600 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 4250 3950 50  0001 C CNN
+F 3 "" H 4250 3950 50  0001 C CNN
+	1    4650 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D3.2
+U 1 1 5E5DB403
+P 4650 3950
+F 0 "D3.2" H 4500 4000 50  0000 C CNN
+F 1 "D" H 4750 4000 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 4650 3950 50  0001 C CNN
+F 3 "~" H 4650 3950 50  0001 C CNN
+	1    4650 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4850 3700 4850 3950
+Wire Wire Line
+	4850 3950 4800 3950
+Wire Wire Line
+	4450 3700 4450 3550
+Wire Wire Line
+	4500 3950 4350 3950
+$Comp
+L therefore:switch K3.3
+U 1 1 5E5DB40E
+P 5250 3700
+F 0 "K3.3" H 5250 3600 50  0000 C CNN
+F 1 "switch" H 5100 3600 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 4850 3950 50  0001 C CNN
+F 3 "" H 4850 3950 50  0001 C CNN
+	1    5250 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D3.3
+U 1 1 5E5DB415
+P 5250 3950
+F 0 "D3.3" H 5100 4000 50  0000 C CNN
+F 1 "D" H 5350 4000 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 5250 3950 50  0001 C CNN
+F 3 "~" H 5250 3950 50  0001 C CNN
+	1    5250 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5450 3700 5450 3950
+Wire Wire Line
+	5450 3950 5400 3950
+Wire Wire Line
+	5050 3700 5050 3550
+Wire Wire Line
+	5100 3950 4950 3950
+$Comp
+L therefore:switch K3.4
+U 1 1 5E5DB420
+P 5850 3700
+F 0 "K3.4" H 5850 3600 50  0000 C CNN
+F 1 "switch" H 5700 3600 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 5450 3950 50  0001 C CNN
+F 3 "" H 5450 3950 50  0001 C CNN
+	1    5850 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D3.4
+U 1 1 5E5DB427
+P 5850 3950
+F 0 "D3.4" H 5700 4000 50  0000 C CNN
+F 1 "D" H 5950 4000 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 5850 3950 50  0001 C CNN
+F 3 "~" H 5850 3950 50  0001 C CNN
+	1    5850 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6050 3700 6050 3950
+Wire Wire Line
+	6050 3950 6000 3950
+Wire Wire Line
+	5650 3700 5650 3550
+Wire Wire Line
+	5700 3950 5550 3950
+$Comp
+L therefore:switch K3.5
+U 1 1 5E5DB432
+P 6450 3700
+F 0 "K3.5" H 6450 3600 50  0000 C CNN
+F 1 "switch" H 6300 3600 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 6050 3950 50  0001 C CNN
+F 3 "" H 6050 3950 50  0001 C CNN
+	1    6450 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D3.5
+U 1 1 5E5DB439
+P 6450 3950
+F 0 "D3.5" H 6300 4000 50  0000 C CNN
+F 1 "D" H 6550 4000 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 6450 3950 50  0001 C CNN
+F 3 "~" H 6450 3950 50  0001 C CNN
+	1    6450 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6650 3700 6650 3950
+Wire Wire Line
+	6650 3950 6600 3950
+Wire Wire Line
+	6250 3700 6250 3550
+Wire Wire Line
+	6300 3950 6150 3950
+$Comp
+L therefore:switch K3.6
+U 1 1 5E5DB444
+P 7050 3700
+F 0 "K3.6" H 7050 3600 50  0000 C CNN
+F 1 "switch" H 6900 3600 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 6650 3950 50  0001 C CNN
+F 3 "" H 6650 3950 50  0001 C CNN
+	1    7050 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D3.6
+U 1 1 5E5DB44B
+P 7050 3950
+F 0 "D3.6" H 6900 4000 50  0000 C CNN
+F 1 "D" H 7150 4000 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 7050 3950 50  0001 C CNN
+F 3 "~" H 7050 3950 50  0001 C CNN
+	1    7050 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7250 3700 7250 3950
+Wire Wire Line
+	7250 3950 7200 3950
+Wire Wire Line
+	6850 3700 6850 3550
+Wire Wire Line
+	6900 3950 6750 3950
+$Comp
+L therefore:switch K3.7
+U 1 1 5E5DB456
+P 7650 3700
+F 0 "K3.7" H 7650 3600 50  0000 C CNN
+F 1 "switch" H 7500 3600 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.50u_PCB" H 7250 3950 50  0001 C CNN
+F 3 "" H 7250 3950 50  0001 C CNN
+	1    7650 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D3.7
+U 1 1 5E5DB45D
+P 7650 3950
+F 0 "D3.7" H 7500 4000 50  0000 C CNN
+F 1 "D" H 7750 4000 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 7650 3950 50  0001 C CNN
+F 3 "~" H 7650 3950 50  0001 C CNN
+	1    7650 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7850 3700 7850 3950
+Wire Wire Line
+	7850 3950 7800 3950
+Wire Wire Line
+	7450 3700 7450 3550
+Wire Wire Line
+	7500 3950 7350 3950
+$Comp
+L therefore:switch K4.1
+U 1 1 5E5DB468
+P 4050 4300
+F 0 "K4.1" H 4050 4200 50  0000 C CNN
+F 1 "switch" H 3900 4200 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.50u_PCB_ra" H 3650 4550 50  0001 C CNN
+F 3 "" H 3650 4550 50  0001 C CNN
+	1    4050 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D4.1
+U 1 1 5E5DB46F
+P 4050 4550
+F 0 "D4.1" H 3900 4600 50  0000 C CNN
+F 1 "D" H 4150 4600 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 4050 4550 50  0001 C CNN
+F 3 "~" H 4050 4550 50  0001 C CNN
+	1    4050 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4250 4300 4250 4550
+Wire Wire Line
+	4250 4550 4200 4550
+Wire Wire Line
+	3850 4300 3850 4150
+Wire Wire Line
+	3900 4550 3750 4550
+$Comp
+L therefore:switch K4.2
+U 1 1 5E5DB47A
+P 4650 4300
+F 0 "K4.2" H 4650 4200 50  0000 C CNN
+F 1 "switch" H 4500 4200 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 4250 4550 50  0001 C CNN
+F 3 "" H 4250 4550 50  0001 C CNN
+	1    4650 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D4.2
+U 1 1 5E5DB481
+P 4650 4550
+F 0 "D4.2" H 4500 4600 50  0000 C CNN
+F 1 "D" H 4750 4600 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 4650 4550 50  0001 C CNN
+F 3 "~" H 4650 4550 50  0001 C CNN
+	1    4650 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4850 4300 4850 4550
+Wire Wire Line
+	4850 4550 4800 4550
+Wire Wire Line
+	4450 4300 4450 4150
+Wire Wire Line
+	4500 4550 4350 4550
+$Comp
+L therefore:switch K4.3
+U 1 1 5E5DB48C
+P 5250 4300
+F 0 "K4.3" H 5250 4200 50  0000 C CNN
+F 1 "switch" H 5100 4200 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 4850 4550 50  0001 C CNN
+F 3 "" H 4850 4550 50  0001 C CNN
+	1    5250 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D4.3
+U 1 1 5E5DB493
+P 5250 4550
+F 0 "D4.3" H 5100 4600 50  0000 C CNN
+F 1 "D" H 5350 4600 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 5250 4550 50  0001 C CNN
+F 3 "~" H 5250 4550 50  0001 C CNN
+	1    5250 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5450 4300 5450 4550
+Wire Wire Line
+	5450 4550 5400 4550
+Wire Wire Line
+	5050 4300 5050 4150
+Wire Wire Line
+	5100 4550 4950 4550
+$Comp
+L therefore:switch K4.4
+U 1 1 5E5DB49E
+P 5850 4300
+F 0 "K4.4" H 5850 4200 50  0000 C CNN
+F 1 "switch" H 5700 4200 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 5450 4550 50  0001 C CNN
+F 3 "" H 5450 4550 50  0001 C CNN
+	1    5850 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D4.4
+U 1 1 5E5DB4A5
+P 5850 4550
+F 0 "D4.4" H 5700 4600 50  0000 C CNN
+F 1 "D" H 5950 4600 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 5850 4550 50  0001 C CNN
+F 3 "~" H 5850 4550 50  0001 C CNN
+	1    5850 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6050 4300 6050 4550
+Wire Wire Line
+	6050 4550 6000 4550
+Wire Wire Line
+	5650 4300 5650 4150
+Wire Wire Line
+	5700 4550 5550 4550
+$Comp
+L therefore:switch K4.5
+U 1 1 5E5DB4B0
+P 6450 4300
+F 0 "K4.5" H 6450 4200 50  0000 C CNN
+F 1 "switch" H 6300 4200 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 6050 4550 50  0001 C CNN
+F 3 "" H 6050 4550 50  0001 C CNN
+	1    6450 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D4.5
+U 1 1 5E5DB4B7
+P 6450 4550
+F 0 "D4.5" H 6300 4600 50  0000 C CNN
+F 1 "D" H 6550 4600 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 6450 4550 50  0001 C CNN
+F 3 "~" H 6450 4550 50  0001 C CNN
+	1    6450 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6650 4300 6650 4550
+Wire Wire Line
+	6650 4550 6600 4550
+Wire Wire Line
+	6250 4300 6250 4150
+Wire Wire Line
+	6300 4550 6150 4550
+$Comp
+L therefore:switch K4.6
+U 1 1 5E5DB4C2
+P 7050 4300
+F 0 "K4.6" H 7050 4200 50  0000 C CNN
+F 1 "switch" H 6900 4200 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 6650 4550 50  0001 C CNN
+F 3 "" H 6650 4550 50  0001 C CNN
+	1    7050 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D4.6
+U 1 1 5E5DB4C9
+P 7050 4550
+F 0 "D4.6" H 6900 4600 50  0000 C CNN
+F 1 "D" H 7150 4600 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 7050 4550 50  0001 C CNN
+F 3 "~" H 7050 4550 50  0001 C CNN
+	1    7050 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7250 4300 7250 4550
+Wire Wire Line
+	7250 4550 7200 4550
+Wire Wire Line
+	6850 4300 6850 4150
+Wire Wire Line
+	6900 4550 6750 4550
+$Comp
+L therefore:switch K5.1
+U 1 1 5E5E09E8
+P 4050 4900
+F 0 "K5.1" H 4050 4800 50  0000 C CNN
+F 1 "switch" H 3900 4800 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 3650 5150 50  0001 C CNN
+F 3 "" H 3650 5150 50  0001 C CNN
+	1    4050 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D5.1
+U 1 1 5E5E09EF
+P 4050 5150
+F 0 "D5.1" H 3900 5200 50  0000 C CNN
+F 1 "D" H 4150 5200 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 4050 5150 50  0001 C CNN
+F 3 "~" H 4050 5150 50  0001 C CNN
+	1    4050 5150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4250 4900 4250 5150
+Wire Wire Line
+	4250 5150 4200 5150
+Wire Wire Line
+	3850 4900 3850 4750
+$Comp
+L therefore:switch K5.2
+U 1 1 5E5E09FA
+P 4650 4900
+F 0 "K5.2" H 4650 4800 50  0000 C CNN
+F 1 "switch" H 4500 4800 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 4250 5150 50  0001 C CNN
+F 3 "" H 4250 5150 50  0001 C CNN
+	1    4650 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D5.2
+U 1 1 5E5E0A01
+P 4650 5150
+F 0 "D5.2" H 4500 5200 50  0000 C CNN
+F 1 "D" H 4750 5200 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 4650 5150 50  0001 C CNN
+F 3 "~" H 4650 5150 50  0001 C CNN
+	1    4650 5150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4850 4900 4850 5150
+Wire Wire Line
+	4850 5150 4800 5150
+Wire Wire Line
+	4450 4900 4450 4750
+Wire Wire Line
+	4500 5150 4350 5150
+$Comp
+L therefore:switch K5.3
+U 1 1 5E5E0A0C
+P 5250 4900
+F 0 "K5.3" H 5250 4800 50  0000 C CNN
+F 1 "switch" H 5100 4800 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 4850 5150 50  0001 C CNN
+F 3 "" H 4850 5150 50  0001 C CNN
+	1    5250 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D5.3
+U 1 1 5E5E0A13
+P 5250 5150
+F 0 "D5.3" H 5100 5200 50  0000 C CNN
+F 1 "D" H 5350 5200 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 5250 5150 50  0001 C CNN
+F 3 "~" H 5250 5150 50  0001 C CNN
+	1    5250 5150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5450 4900 5450 5150
+Wire Wire Line
+	5450 5150 5400 5150
+Wire Wire Line
+	5050 4900 5050 4750
+Wire Wire Line
+	5100 5150 4950 5150
+$Comp
+L therefore:switch K5.4
+U 1 1 5E5E0A1E
+P 5850 4900
+F 0 "K5.4" H 5850 4800 50  0000 C CNN
+F 1 "switch" H 5700 4800 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 5450 5150 50  0001 C CNN
+F 3 "" H 5450 5150 50  0001 C CNN
+	1    5850 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D5.4
+U 1 1 5E5E0A25
+P 5850 5150
+F 0 "D5.4" H 5700 5200 50  0000 C CNN
+F 1 "D" H 5950 5200 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 5850 5150 50  0001 C CNN
+F 3 "~" H 5850 5150 50  0001 C CNN
+	1    5850 5150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6050 4900 6050 5150
+Wire Wire Line
+	6050 5150 6000 5150
+Wire Wire Line
+	5650 4900 5650 4750
+Wire Wire Line
+	5700 5150 5550 5150
+$Comp
+L therefore:switch K5.5
+U 1 1 5E5E0A30
+P 6450 4900
+F 0 "K5.5" H 6450 4800 50  0000 C CNN
+F 1 "switch" H 6300 4800 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 6050 5150 50  0001 C CNN
+F 3 "" H 6050 5150 50  0001 C CNN
+	1    6450 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D5.5
+U 1 1 5E5E0A37
+P 6450 5150
+F 0 "D5.5" H 6300 5200 50  0000 C CNN
+F 1 "D" H 6550 5200 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 6450 5150 50  0001 C CNN
+F 3 "~" H 6450 5150 50  0001 C CNN
+	1    6450 5150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6650 4900 6650 5150
+Wire Wire Line
+	6650 5150 6600 5150
+Wire Wire Line
+	6250 4900 6250 4750
+Wire Wire Line
+	6300 5150 6150 5150
+$Comp
+L therefore:switch K5.8
+U 1 1 5E60CF05
+P 8200 4900
+F 0 "K5.8" H 8200 4800 50  0000 C CNN
+F 1 "switch" H 8050 4800 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 7800 5150 50  0001 C CNN
+F 3 "" H 7800 5150 50  0001 C CNN
+	1    8200 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:1N4148W D5.8
+U 1 1 5E60CF0C
+P 8200 5150
+F 0 "D5.8" H 8050 5200 50  0000 C CNN
+F 1 "D" H 8300 5200 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 8200 5150 50  0001 C CNN
+F 3 "~" H 8200 5150 50  0001 C CNN
+	1    8200 5150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8400 4900 8400 5150
+Wire Wire Line
+	8400 5150 8350 5150
+Wire Wire Line
+	8000 4900 8000 4750
+Wire Wire Line
+	8050 5150 7900 5150
+Wire Wire Line
+	8050 5750 7900 5750
+Wire Wire Line
+	8000 5500 8000 5350
+Wire Wire Line
+	8400 5750 8350 5750
+Wire Wire Line
+	8400 5500 8400 5750
+$Comp
+L therefore:1N4148W D6.8
+U 1 1 5E60CF8A
+P 8200 5750
+F 0 "D6.8" H 8050 5800 50  0000 C CNN
+F 1 "D" H 8300 5800 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 8200 5750 50  0001 C CNN
+F 3 "~" H 8200 5750 50  0001 C CNN
+	1    8200 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:switch K6.8
+U 1 1 5E60CF83
+P 8200 5500
+F 0 "K6.8" H 8200 5400 50  0000 C CNN
+F 1 "switch" H 8050 5400 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 7800 5750 50  0001 C CNN
+F 3 "" H 7800 5750 50  0001 C CNN
+	1    8200 5500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7500 5150 7350 5150
+Wire Wire Line
+	7450 4900 7450 4750
+Wire Wire Line
+	7850 5150 7800 5150
+Wire Wire Line
+	7850 4900 7850 5150
+$Comp
+L therefore:1N4148W D5.7
+U 1 1 5E5E0A5B
+P 7650 5150
+F 0 "D5.7" H 7500 5200 50  0000 C CNN
+F 1 "D" H 7750 5200 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 7650 5150 50  0001 C CNN
+F 3 "~" H 7650 5150 50  0001 C CNN
+	1    7650 5150
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:switch K5.7
+U 1 1 5E5E0A54
+P 7650 4900
+F 0 "K5.7" H 7650 4800 50  0000 C CNN
+F 1 "switch" H 7500 4800 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_2.00u_Vertical_PCB" H 7250 5150 50  0001 C CNN
+F 3 "" H 7250 5150 50  0001 C CNN
+	1    7650 4900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6900 5150 6750 5150
+Wire Wire Line
+	6850 4900 6850 4750
+Wire Wire Line
+	7250 5150 7200 5150
+Wire Wire Line
+	7250 4900 7250 5150
+$Comp
+L therefore:1N4148W D5.6
+U 1 1 5E5E0A49
+P 7050 5150
+F 0 "D5.6" H 6900 5200 50  0000 C CNN
+F 1 "D" H 7150 5200 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 7050 5150 50  0001 C CNN
+F 3 "~" H 7050 5150 50  0001 C CNN
+	1    7050 5150
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:switch K5.6
+U 1 1 5E5E0A42
+P 7050 4900
+F 0 "K5.6" H 7050 4800 50  0000 C CNN
+F 1 "switch" H 6900 4800 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_2.00u_Vertical_PCB" H 6650 5150 50  0001 C CNN
+F 3 "" H 6650 5150 50  0001 C CNN
+	1    7050 4900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8050 4550 7900 4550
+Wire Wire Line
+	8000 4300 8000 4150
+Wire Wire Line
+	8400 4550 8350 4550
+Wire Wire Line
+	8400 4300 8400 4550
+$Comp
+L therefore:1N4148W D4.8
+U 1 1 5E60CE8E
+P 8200 4550
+F 0 "D4.8" H 8050 4600 50  0000 C CNN
+F 1 "D" H 8300 4600 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 8200 4550 50  0001 C CNN
+F 3 "~" H 8200 4550 50  0001 C CNN
+	1    8200 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:switch K4.8
+U 1 1 5E60CE87
+P 8200 4300
+F 0 "K4.8" H 8200 4200 50  0000 C CNN
+F 1 "switch" H 8050 4200 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 7800 4550 50  0001 C CNN
+F 3 "" H 7800 4550 50  0001 C CNN
+	1    8200 4300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7500 4550 7350 4550
+Wire Wire Line
+	7450 4300 7450 4150
+Wire Wire Line
+	7850 4550 7800 4550
+Wire Wire Line
+	7850 4300 7850 4550
+$Comp
+L therefore:1N4148W D4.7
+U 1 1 5E5DB4DB
+P 7650 4550
+F 0 "D4.7" H 7500 4600 50  0000 C CNN
+F 1 "D" H 7750 4600 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 7650 4550 50  0001 C CNN
+F 3 "~" H 7650 4550 50  0001 C CNN
+	1    7650 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L therefore:switch K4.7
+U 1 1 5E5DB4D4
+P 7650 4300
+F 0 "K4.7" H 7650 4200 50  0000 C CNN
+F 1 "switch" H 7500 4200 50  0001 C CNN
+F 2 "therefore:SW_Cherry_MX1A_1.00u_PCB_ra" H 7250 4550 50  0001 C CNN
+F 3 "" H 7250 4550 50  0001 C CNN
+	1    7650 4300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 2750 3750 3350
+Wire Wire Line
+	3750 5150 3900 5150
+Connection ~ 3750 3350
+Wire Wire Line
+	3750 3350 3750 3950
+Connection ~ 3750 3950
+Wire Wire Line
+	3750 3950 3750 4550
+Connection ~ 3750 4550
+Wire Wire Line
+	3750 4550 3750 5150
+Wire Wire Line
+	4350 2750 4350 3350
+Connection ~ 4350 3350
+Wire Wire Line
+	4350 3350 4350 3950
+Connection ~ 4350 3950
+Wire Wire Line
+	4350 3950 4350 4550
+Connection ~ 4350 4550
+Wire Wire Line
+	4350 4550 4350 5150
+Wire Wire Line
+	4950 2750 4950 3350
+Connection ~ 4950 3350
+Wire Wire Line
+	4950 3350 4950 3950
+Connection ~ 4950 3950
+Wire Wire Line
+	4950 3950 4950 4550
+Connection ~ 4950 4550
+Wire Wire Line
+	4950 4550 4950 5150
+Wire Wire Line
+	5550 2750 5550 3350
+Connection ~ 5550 3350
+Wire Wire Line
+	5550 3350 5550 3950
+Connection ~ 5550 3950
+Wire Wire Line
+	5550 3950 5550 4550
+Connection ~ 5550 4550
+Wire Wire Line
+	5550 4550 5550 5150
+Wire Wire Line
+	6150 2750 6150 3350
+Connection ~ 6150 3350
+Wire Wire Line
+	6150 3350 6150 3950
+Connection ~ 6150 3950
+Wire Wire Line
+	6150 3950 6150 4550
+Connection ~ 6150 4550
+Wire Wire Line
+	6150 4550 6150 5150
+Wire Wire Line
+	6750 2750 6750 3350
+Connection ~ 6750 3350
+Wire Wire Line
+	6750 3350 6750 3950
+Connection ~ 6750 3950
+Wire Wire Line
+	6750 3950 6750 4550
+Connection ~ 6750 4550
+Wire Wire Line
+	6750 4550 6750 5150
+Wire Wire Line
+	7350 2750 7350 3350
+Connection ~ 7350 3350
+Wire Wire Line
+	7350 3350 7350 3950
+Connection ~ 7350 3950
+Wire Wire Line
+	7350 3950 7350 4550
+Connection ~ 7350 4550
+Wire Wire Line
+	7350 4550 7350 5150
+Wire Wire Line
+	7900 4550 7900 5150
+Connection ~ 7900 5150
+Wire Wire Line
+	7900 5150 7900 5750
+Wire Wire Line
+	7450 2350 6850 2350
+Wire Wire Line
+	4450 2350 3850 2350
+Connection ~ 5050 2350
+Wire Wire Line
+	5050 2350 4450 2350
+Connection ~ 5650 2350
+Wire Wire Line
+	5650 2350 5050 2350
+Connection ~ 6250 2350
+Wire Wire Line
+	6250 2350 5650 2350
+Connection ~ 6850 2350
+Wire Wire Line
+	6850 2350 6250 2350
+Wire Wire Line
+	7450 2950 6850 2950
+Wire Wire Line
+	4450 2950 3850 2950
+Connection ~ 5050 2950
+Wire Wire Line
+	5050 2950 4450 2950
+Connection ~ 5650 2950
+Wire Wire Line
+	5650 2950 5050 2950
+Connection ~ 6250 2950
+Wire Wire Line
+	6250 2950 5650 2950
+Connection ~ 6850 2950
+Wire Wire Line
+	6850 2950 6250 2950
+Wire Wire Line
+	7450 3550 6850 3550
+Wire Wire Line
+	4450 3550 3850 3550
+Connection ~ 5050 3550
+Wire Wire Line
+	5050 3550 4450 3550
+Connection ~ 5650 3550
+Wire Wire Line
+	5650 3550 5050 3550
+Connection ~ 6250 3550
+Wire Wire Line
+	6250 3550 5650 3550
+Connection ~ 6850 3550
+Wire Wire Line
+	6850 3550 6250 3550
+Wire Wire Line
+	8000 4150 7450 4150
+Wire Wire Line
+	4450 4150 3850 4150
+Connection ~ 5050 4150
+Wire Wire Line
+	5050 4150 4450 4150
+Connection ~ 5650 4150
+Wire Wire Line
+	5650 4150 5050 4150
+Connection ~ 6250 4150
+Wire Wire Line
+	6250 4150 5650 4150
+Connection ~ 6850 4150
+Wire Wire Line
+	6850 4150 6250 4150
+Connection ~ 7450 4150
+Wire Wire Line
+	7450 4150 6850 4150
+Wire Wire Line
+	8000 4750 7450 4750
+Wire Wire Line
+	4450 4750 3850 4750
+Connection ~ 5050 4750
+Wire Wire Line
+	5050 4750 4450 4750
+Connection ~ 5650 4750
+Wire Wire Line
+	5650 4750 5050 4750
+Connection ~ 6250 4750
+Wire Wire Line
+	6250 4750 5650 4750
+Connection ~ 6850 4750
+Wire Wire Line
+	6850 4750 6250 4750
+Connection ~ 7450 4750
+Wire Wire Line
+	7450 4750 6850 4750
+Connection ~ 3850 2350
+Connection ~ 4450 4750
+Connection ~ 4450 4150
+Connection ~ 4450 3550
+Connection ~ 4450 2950
+Connection ~ 4450 2350
+Connection ~ 3750 2750
+Wire Wire Line
+	3600 2350 3850 2350
+Wire Wire Line
+	3750 2200 3750 2750
+Wire Wire Line
+	3750 2100 4350 2100
+Wire Wire Line
+	4350 2100 4350 2750
+Connection ~ 4350 2750
+Wire Wire Line
+	3750 2000 4950 2000
+Wire Wire Line
+	4950 2000 4950 2750
+Connection ~ 4950 2750
+Wire Wire Line
+	3750 1900 5550 1900
+Wire Wire Line
+	5550 1900 5550 2750
+Connection ~ 5550 2750
+Wire Wire Line
+	3750 1800 6150 1800
+Wire Wire Line
+	6150 1800 6150 2750
+Connection ~ 6150 2750
+Wire Wire Line
+	3750 1700 6750 1700
+Wire Wire Line
+	6750 1700 6750 2750
+Connection ~ 6750 2750
+Wire Wire Line
+	3750 1600 7350 1600
+Wire Wire Line
+	7350 1600 7350 2750
+Connection ~ 7350 2750
+Wire Wire Line
+	3750 1500 7900 1500
+Wire Wire Line
+	7900 1500 7900 4550
+Connection ~ 7900 4550
+Wire Wire Line
+	3850 2950 3500 2950
+Wire Wire Line
+	3500 2950 3500 2350
+Connection ~ 3850 2950
+Wire Wire Line
+	3850 3550 3400 3550
+Wire Wire Line
+	3400 3550 3400 2350
+Connection ~ 3850 3550
+Wire Wire Line
+	3850 4150 3300 4150
+Wire Wire Line
+	3300 4150 3300 2350
+Connection ~ 3850 4150
+Wire Wire Line
+	3850 4750 3200 4750
+Wire Wire Line
+	3200 4750 3200 2350
+Connection ~ 3850 4750
+Wire Wire Line
+	8000 5350 3100 5350
+Wire Wire Line
+	3100 5350 3100 2350
+$Comp
+L therefore-rescue:MCU-therefore U1
+U 1 1 5E5E95A2
+P 3650 2250
+F 0 "U1" H 3350 3225 50  0000 C CNN
+F 1 "MCU" H 3350 3134 50  0000 C CNN
+F 2 "therefore:mcu" V 3400 2200 50  0001 C CNN
+F 3 "" V 3400 2200 50  0001 C CNN
+	1    3650 2250
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC
