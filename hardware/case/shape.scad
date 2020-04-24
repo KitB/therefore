@@ -60,8 +60,8 @@ function add (mat, vec) = [for (mv = mat) mv + vec];
 function mul (mat, vec) = [for (mv = mat) vmul(mv, vec)];
 function pad_angles (locations) = [for (loc = locations) concat(loc, [0])];
 
-inter_switch_distance = 19.05;
-d = inter_switch_distance;
+inter_switch_distance = 19.06;
+d = 19.06;
 
 finger_locations = pad_angles([
   [0,        0], [d,     0], [2 * d,    -1.27], [3 * d,    -2.82], [4 * d,    -1.27], [5 * d,     1.9], [6.25 * d,     1.9],
@@ -79,7 +79,7 @@ thumb_locations = rot(a, cp=[3 * d + 7, 4 * d - 2.82, 0], p=add([
   [-d - 14 , d * 1.25 + 14, a],
   [-d - 14 , d * 2.25 + 14, a],
   [-d - 14 , d * 3.25 + 14, a],
-], [2.9, -3.1, 0]));
+], [3, -3.3, 0]));
 
 _switch_locations = concat(finger_locations, thumb_locations);
 
