@@ -54,9 +54,9 @@ class Negotiations:
 
     @property
     def my_role(self):
-        if self.hand == 'right':
+        if self.hand == 'left':
             return 'batman'
-        elif self.hand == 'left':
+        elif self.hand == 'right':
             return 'robin'
 
     def connect_left(self):
@@ -71,9 +71,10 @@ class Negotiations:
 
     def connect_right(self):
         print('searching')
-        for ad in radio.start_scan(ProvideServicesAdvertisement):
+        for ad in radio.start_scan(ProvideServicesAdvertisement, interval=0.02, window=0.02):
             if SubkeypadService in ad.services:
-                radio.connect(ad)
+                self.connection = radio.connect(ad)
+                self.connection.connection_interval = 7.5
                 break
         radio.stop_scan()
         self._set_connection()
@@ -87,6 +88,7 @@ class Negotiations:
 
     @property
     def skp(self):
+        """ SubkeypadService"""
         if not self.connection.connected:
             return None
         if self.hand == 'right':
