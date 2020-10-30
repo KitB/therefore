@@ -8,15 +8,12 @@ from therefore.writekeys import Output, Layout, SystemKeyPressed
 
 from _bleio import ConnectionError
 
-uart = busio.UART(board.TX, board.RX, baudrate=9600, timeout=100)
-
 DEBUG = True
 VERBOSE = False
 
 if DEBUG:
     def debug(msg):
         print(msg)
-        uart.write((msg + '\r\n').encode('utf-8'))
 else:
     def debug(msg):
         pass
@@ -62,7 +59,7 @@ class MainProcess:
         self.previous_state = None
         self.state = State.start  # also sets output
         self.advertising = False
-        self.pool = mesh.Negotiations(hand=HAND)
+        self.pool = mesh.WiredNegotiations(hand=HAND)
         self.remote_keys = None
 
         self.mode = 'usb_only'

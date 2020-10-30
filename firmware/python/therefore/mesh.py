@@ -1,6 +1,8 @@
 import struct
 
 import adafruit_ble as ble
+import board
+import busio
 from adafruit_ble.advertising.standard import ProvideServicesAdvertisement
 from adafruit_ble.characteristics import ComplexCharacteristic
 from adafruit_ble.characteristics.int import Uint8Characteristic
@@ -44,13 +46,9 @@ class SubkeypadService(UARTService):
 radio = ble.BLERadio()
 
 
-class Negotiations:
-    def __init__(self, *, hand):
+class BaseNegotiations:
+    def __init__(self, hand):
         self.hand = hand
-        self.usb_connected = False
-        self.skp_service = SubkeypadService()
-        self.advert = ProvideServicesAdvertisement(self.skp_service)
-        self.connection = None
 
     @property
     def my_role(self):
@@ -58,6 +56,23 @@ class Negotiations:
             return 'batman'
         elif self.hand == 'right':
             return 'robin'
+
+
+class WiredNegotiations(BaseNegotiations):
+    def __init__(self, *, hand):
+        super().__init__(hand)
+        self.uart = UARTWrapper(busio.UART(board.TX, board.RX, baudrate=9600, timeout=100))
+
+    def connect(self):
+        pass
+
+class Negotiations(BaseNegotiations):
+    def __init__(self, *, hand):
+        super().__init__(hand)
+        self.usb_connected = False
+        self.skp_service = SubkeypadService()
+        self.advert = ProvideServicesAdvertisement(self.skp_service)
+        self.connection = None
 
     def connect_left(self):
         print('advertising')
@@ -109,19 +124,26 @@ class UARTWrapper:
 
     @property
     def keys_pressed(self):
-        n = self.uart.read(1)[0]
-        bites = self.uart.read(2 * n)
+        self.uart.readline()
+        bites = self.uart.read(24)
         self.uart.reset_input_buffer()
 
+        locs = struct.unpack('b' * 24, bites)
+
         def _gen():
-            for i in range(0, len(bites), 2):
-                yield (bites[i], bites[i + 1])
+            for i in range(0, len(locs), 2):
+                if locs[i] >= 0:
+                    yield (locs[i], locs[i + 1])
 
         return list(_gen())
 
     @keys_pressed.setter
     def keys_pressed(self, locs):
         n = len(locs)
-        fmt = 'B' * ((2 * n) + 1)
-        b = struct.pack(fmt, n, *[v for loc in locs for v in loc])
-        self.uart.write(b)
+
+        send_locs = [(-1, -1)] * 12
+        send_locs[0:n] = locs
+
+        fmt = 'b' * 24
+        b = struct.pack(fmt, *[v for loc in send_locs for v in loc])
+        self.uart.write(b'\n' + b)
