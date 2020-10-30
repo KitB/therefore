@@ -121,9 +121,12 @@ class Negotiations(BaseNegotiations):
 class UARTWrapper:
     def __init__(self, uart):
         self.uart = uart
+        self.last = []
 
     @property
     def keys_pressed(self):
+        if not self.uart.in_waiting:
+            return self.last
         self.uart.readline()
         bites = self.uart.read(24)
         self.uart.reset_input_buffer()
@@ -135,7 +138,8 @@ class UARTWrapper:
                 if locs[i] >= 0:
                     yield (locs[i], locs[i + 1])
 
-        return list(_gen())
+        self.last = list(_gen())
+        return self.last
 
     @keys_pressed.setter
     def keys_pressed(self, locs):
