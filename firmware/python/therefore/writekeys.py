@@ -1,5 +1,6 @@
 from adafruit_hid.keyboard import Keyboard
 from adafruit_hid.keycode import Keycode
+from adafruit_hid.consumer_control_code import ConsumerControlCode
 
 DEFAULT_KEYCODE = Keycode.SPACE
 
@@ -69,6 +70,7 @@ def parse(keystr):
         return DEFAULT_KEYCODE
 
 
+# TODO: figure out an implementation of layers that actually makes sense
 class Layer:
     def __init__(self, definition):
         self.table = [[parse(keystr) for keystr in row] for row in definition]
@@ -100,9 +102,20 @@ class Layout:
 
     def push(self, layer):
         self.layer_stack.append(layer)
+        print(self.layer_stack)
 
-    def pop(self):
-        self.layer_stack.pop()
+    def pop(self, layer=None):
+        if layer is None:
+            self.layer_stack.pop()
+        elif layer in self.layer_stack:
+            self.layer_stack = self.layer_stack[:self.layer_stack.index(layer)]
+        print(self.layer_stack)
+
+    def toggle(self, layer):
+        if layer in self.layer_stack:
+            self.pop(layer)
+        else:
+            self.push(layer)
 
 
 class SystemKeyPressed(Exception):
@@ -113,7 +126,7 @@ class SystemKeyPressed(Exception):
 
 
 class Output:
-    def __init__(self, layout, keyboard):
+    def __init__(self, layout, keyboard: Keyboard):
         self.keyboard = keyboard
         self.layout = layout
 
@@ -141,12 +154,19 @@ class Output:
 
     def handle_system_press(self, command, args):
         if command == 'to':
+            print(f'to {args[0]}')
             self.layout.push(args[0])
+            self.keyboard.release_all()
+        elif command == 'toggle':
+            print(f'toggling {args[0]}')
+            self.layout.toggle(args[0])
             self.keyboard.release_all()
         else:
             raise SystemKeyPressed(command)
 
     def handle_system_release(self, command, args):
         if command == 'to':
-            self.layout.pop()
+            print(f'un-to {args[0]}')
+            self.layout.pop(args[0])
             self.keyboard.release_all()
+

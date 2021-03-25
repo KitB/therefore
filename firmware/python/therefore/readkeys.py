@@ -49,6 +49,7 @@ class MatrixKeypad(object):
             self.col_pins[col].pull = Pull.UP
         return pressed
 
+
 class Keypad:
     def __init__(self, hand, col_pins=col_pins, row_pins=row_pins):
         width = len(col_pins)
