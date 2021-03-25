@@ -8,6 +8,7 @@ Special keys start with ':'
 :switch   switch between BLE and USB modes
 :reset    reset the keyboard
 :to(...)  go to layer '...' while button is held
+:toggle(...) go to layer '...' until told otherwise
 
 """
 fn = ':to(functions)'
@@ -20,7 +21,7 @@ layout = {
             ['shift', 'z', 'x', 'c', 'v', 'b', 'home' , 'ins', 'page_up', 'right_alt', 'n', 'm', ',', '.', '/', 'right_shift'],
 
             # `          1    2     3     4       5     d     s     6     7     8     9     0     -
-            ['control', ' ', ' ', 'win', 'alt', 'backspace', ':to(left thumb)', 'end', 'page_down', 'enter', 'spacebar', 'left', 'down', 'up', 'right', 'right_control'],
+            ['control', ' ', 'win', 'alt', 'spacebar', 'backspace', ':to(left thumb)', 'end', 'page_down', 'enter', 'spacebar', 'left', 'down', 'up', 'right', 'right_control'],
             [':_', ':_', ':_', ':_', ':_', ':_', ':_', 'win', 'win', ':_', ':_', ':_', ':_', ':_', ':_', ':_'],
         ],
         'left thumb': [
