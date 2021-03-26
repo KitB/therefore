@@ -1,172 +1,46 @@
+from therefore.cc_device import ConsumerControl
 from adafruit_hid.keyboard import Keyboard
-from adafruit_hid.keycode import Keycode
-from adafruit_hid.consumer_control_code import ConsumerControlCode
-
-DEFAULT_KEYCODE = Keycode.SPACE
-
-# TODO: per-country lookups
-lookups = {
-    '1': 'one',
-    '2': 'two',
-    '3': 'three',
-    '4': 'four',
-    '5': 'five',
-    '6': 'six',
-    '7': 'seven',
-    '8': 'eight',
-    '9': 'nine',
-    '0': 'zero',
-    '`': 'grave_accent',
-    '\'': 'quote',
-    ';': 'semicolon',
-    ',': 'comma',
-    '.': 'period',
-    '/': 'forward_slash',
-    '[': 'left_bracket',
-    ']': 'right_bracket',
-    '#': 'pound',
-    '~': ['shift', 'pound'],
-    '\\': 'keypad_backslash',
-    '=': 'equals',
-    '-': 'minus',
-    'ins': 'insert',
-    'del': 'delete',
-    'esc': 'escape',
-    'win': 'gui',
-    'left': 'left_arrow',
-    'right': 'right_arrow',
-    'up': 'up_arrow',
-    'down': 'down_arrow',
-    'caps': 'caps_lock',
-    '(': ['shift', 'nine'],
-    ')': ['shift', 'zero'],
-    '_': ['shift', '-'],
-}
-
-
-def parse_syskey(keystr):
-    keystr = keystr.replace(')', '')
-    command, _, argstr = keystr[1:].partition('(')
-    args = argstr.split(',')
-    return command, args
-
-
-def parse(keystr):
-    # check for defined aliases
-    keystr = lookups.get(keystr, keystr)
-
-    # check for compound keys
-    if isinstance(keystr, list):
-        return [parse(k) for k in keystr]
-
-    # check for system keys
-    if keystr[0] == ':':
-        return parse_syskey(keystr)
-
-    # try for a key code
-    try:
-        return getattr(Keycode, keystr.upper())
-    except AttributeError:
-        return DEFAULT_KEYCODE
-
-
-# TODO: figure out an implementation of layers that actually makes sense
-class Layer:
-    def __init__(self, definition):
-        self.table = [[parse(keystr) for keystr in row] for row in definition]
-
-    def __getitem__(self, loc):
-        column, row = loc
-        try:
-            return self.table[row][column]
-        except IndexError:
-            return DEFAULT_KEYCODE
-
-
-class Layout:
-    """
-    Converts (column, row) locations into actionable objects based on a given layout definition
-    """
-
-    def __init__(self, definition):
-        self.layers = {name: Layer(value) for name, value in definition['layers'].items()}
-        self.layer_stack = ['default']
-
-    def __getitem__(self, loc):
-        out = ('t', [''])
-        stack_pos = -1
-        while out == ('t', ['']):
-            out = self.layers[self.layer_stack[stack_pos]][loc]
-            stack_pos -= 1
-        return out
-
-    def push(self, layer):
-        self.layer_stack.append(layer)
-        print(self.layer_stack)
-
-    def pop(self, layer=None):
-        if layer is None:
-            self.layer_stack.pop()
-        elif layer in self.layer_stack:
-            self.layer_stack = self.layer_stack[:self.layer_stack.index(layer)]
-        print(self.layer_stack)
-
-    def toggle(self, layer):
-        if layer in self.layer_stack:
-            self.pop(layer)
-        else:
-            self.push(layer)
-
-
-class SystemKeyPressed(Exception):
-    def __init__(self, keycode):
-        # TODO: don't use exceptions for normal control flow
-        # this was just a quick and dirty hack
-        self.keycode = keycode
 
 
 class Output:
-    def __init__(self, layout, keyboard: Keyboard):
+    """ Converts action-outputs from the layout handling to actual actions.
+
+    press and release are expected to be passed in as the emit functions to a LayoutHandler
+    """
+    def __init__(self, keyboard: Keyboard, consumer_control: ConsumerControl):
         self.keyboard = keyboard
-        self.layout = layout
+        self.consumer_control = consumer_control
 
-        self.layer = 'default'
+    def press(self, action):
+        command, args = action
+        getattr(self, 'handle_{}_pressed'.format(command))(args)
 
-    def press(self, location):
-        keycode = self.layout[location]
-        try:
-            self.keyboard.press(keycode)
-        except TypeError:
-            if isinstance(keycode, tuple):
-                self.handle_system_press(*keycode)
-            elif isinstance(keycode, list):
-                self.keyboard.press(*keycode)
+    def release(self, action):
+        command, args = action
+        getattr(self, 'handle_{}_released'.format(command))(args)
 
-    def release(self, location):
-        keycode = self.layout[location]
-        try:
-            self.keyboard.release(keycode)
-        except TypeError:
-            if isinstance(keycode, tuple):
-                self.handle_system_release(*keycode)
-            elif isinstance(keycode, list):
-                self.keyboard.release(*keycode)
+    def handle_key_pressed(self, keycode):
+        self.keyboard.press(keycode)
 
-    def handle_system_press(self, command, args):
-        if command == 'to':
-            print(f'to {args[0]}')
-            self.layout.push(args[0])
-            self.keyboard.release_all()
-        elif command == 'toggle':
-            print(f'toggling {args[0]}')
-            self.layout.toggle(args[0])
-            self.keyboard.release_all()
-        else:
-            raise SystemKeyPressed(command)
+    def handle_key_released(self, keycode):
+        self.keyboard.release(keycode)
 
-    def handle_system_release(self, command, args):
-        if command == 'to':
-            print(f'un-to {args[0]}')
-            self.layout.pop(args[0])
-            self.keyboard.release_all()
+    def handle_consumer_control_pressed(self, cc_code):
+        self.consumer_control.press(cc_code)
 
+    def handle_consumer_control_released(self, cc_code):
+        self.consumer_control.release()
+
+    def handle_combo_pressed(self, keys):
+        self.keyboard.press(*(code for mode, code in keys if mode == 'key'))
+
+    def handle_combo_released(self, keys):
+        self.keyboard.release(*(code for mode, code in keys if mode == 'key'))
+
+    def handle_sequence_pressed(self, actions):
+        for action in actions:
+            self.press(action)
+
+    def handle_sequence_released(self, actions):
+        for action in actions:
+            self.release(action)

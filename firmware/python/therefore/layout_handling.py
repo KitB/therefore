@@ -55,6 +55,7 @@ lookups = {
     '^': {'shift', 'six'},
     '&': {'shift', 'seven'},
     '*': {'shift', 'eight'},
+    'konami': ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a', 'enter'],
 }
 
 
@@ -63,7 +64,7 @@ def parse_syskey(keystr):
     # e.g. changing modes, layers
     keystr = keystr.replace(')', '')
     command, _, argstr = keystr[1:].partition('(')
-    args = argstr.split(',')
+    args = argstr.split(',') if argstr else []
     return command, args
 
 
@@ -74,7 +75,7 @@ def parse_consumer_control(keystr):
     # let the potential AttributeError through so typos are caught early
     code = getattr(ConsumerControlCode, keystr.upper())
 
-    return 'consumer control', code
+    return 'consumer_control', code
 
 
 def parse(keystr):
@@ -95,7 +96,7 @@ def parse(keystr):
         return parse_syskey(keystr)
 
     # check for consumer control keys
-    if keystr.lower().startswith('CC_'):
+    if keystr.lower().startswith('cc_'):
         return parse_consumer_control(keystr)
 
     # finally it must be a standard keycode
@@ -182,7 +183,7 @@ class LayoutHandler:
         command, values = action
 
         if command in LAYER_COMMANDS:
-            getattr(self, f'handle_{command}_pressed')(values)
+            getattr(self, 'handle_{}_pressed'.format(command))(values)
         else:
             self.emit_press(action)
 
@@ -191,7 +192,7 @@ class LayoutHandler:
         command, values = action
 
         if command in LAYER_COMMANDS:
-            getattr(self, f'handle_{command}_released')(values)
+            getattr(self, 'handle_{}_released'.format(command))(values)
         else:
             self.emit_release(action)
 

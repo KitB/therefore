@@ -4,6 +4,7 @@ from adafruit_ble.advertising.standard import ProvideServicesAdvertisement
 from adafruit_ble.services.standard.device_info import DeviceInfoService
 from adafruit_ble.services.standard.hid import HIDService
 from adafruit_hid.keyboard import Keyboard
+from therefore.cc_device import ConsumerControl
 
 from . import mesh
 
@@ -21,6 +22,10 @@ ble = adafruit_ble.BLERadio()
 
 def get_keyboard():
     return Keyboard(hid.devices)
+
+
+def get_consumer_control():
+    return ConsumerControl(hid.devices)
 
 
 def advertise():

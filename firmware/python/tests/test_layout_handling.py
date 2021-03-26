@@ -74,7 +74,7 @@ test_data = {
     ),
     'switch command': (
         [('press', (9, 0)), ('release', (9, 0))],
-        [('press', ('switch', [''])), ('release', ('switch', ['']))]
+        [('press', ('switch', [])), ('release', ('switch', []))]
     ),
     'toggle layer': (
         [

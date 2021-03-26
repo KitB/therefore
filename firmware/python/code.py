@@ -3,8 +3,9 @@ import busio
 import storage
 import neopixel
 
-from therefore import usb, readkeys, ble, mesh, layout
-from therefore.writekeys import Output, Layout, SystemKeyPressed
+from therefore import usb, readkeys, ble, mesh, layout, layout_handling
+from therefore.layout_handling import LayoutHandler, parse_layout
+from therefore.writekeys import Output
 
 from _bleio import ConnectionError
 
@@ -26,11 +27,15 @@ else:
         pass
 
 HAND = storage.getmount('/').label.lower()
+for entry in storage.getmount('/').ilistdir('/'):
+    if entry[0].lower() == 'left':
+        HAND = 'left'
 
 keypad = readkeys.Keypad(HAND)
 
 led = neopixel.NeoPixel(board.NEOPIXEL, 1, pixel_order=neopixel.GRB)
 led.brightness = 0.01
+
 
 # TODO: battery charge tracking
 
@@ -49,15 +54,15 @@ class State:
 
 
 class MainProcess:
-    def __init__(self, usb_keyboard, ble_keyboard, clock_rate=300):
-        self.usb_keyboard = usb_keyboard
-        self.ble_keyboard = ble_keyboard
+    def __init__(self, usb_handler, ble_handler, clock_rate=300):
+        self.usb_handler = usb_handler
+        self.ble_handler = ble_handler
         self.clock_rate = clock_rate
 
         self.previous = set()
         self._state = State.none
         self.previous_state = None
-        self.state = State.start  # also sets output
+        self.state = State.start  # also sets handler
         self.advertising = False
         self.pool = mesh.WiredNegotiations(hand=HAND)
         self.remote_keys = None
@@ -85,10 +90,10 @@ class MainProcess:
 
             if newval == State.ble_connected:
                 led[0] = (0, 0, 255)
-                self.output = self.ble_keyboard()
+                self.handler = self.ble_handler()
             elif newval == State.usb:
                 led[0] = 0x00_FF_00
-                self.output = self.usb_keyboard()
+                self.handler = self.usb_handler()
             elif newval == State.ble_advertising:
                 led[0] = (32, 0, 255)
             elif newval == State.start:
@@ -141,15 +146,13 @@ class MainProcess:
 
         if new:
             verbose('New: %s' % new)
-            for kc in new:
-                try:
-                    self.output.press(kc)
-                except SystemKeyPressed as e:
-                    self.handle_syskey(e.keycode)
+            for x, y in new:
+                self.handler.press(x, y)
+                # TODO: removed syskey handling from here, need to add back in for :switch
         if gone:
             verbose('Gone: %s' % gone)
-            for kc in gone:
-                self.output.release(kc)
+            for x, y in gone:
+                self.handler.release(x, y)
 
         if new | gone:
             verbose('Current: %s' % current)
@@ -186,20 +189,30 @@ class MainProcess:
 
 
 if __name__ == '__main__':
-    layout = Layout(layout.layout)  # layout
+    parsed_layout = parse_layout(layout.layout['layers'])
 
 
     def get_ble_keyboard():
-        return Output(
-            layout=layout,
+        output = Output(
             keyboard=ble.get_keyboard(),
+            consumer_control=ble.get_consumer_control(),
+        )
+        return LayoutHandler(
+            parsed_layout=parsed_layout,
+            emit_press_callable=output.press,
+            emit_release_callable=output.release,
         )
 
 
     def get_usb_keyboard():
-        return Output(
-            layout=layout,
+        output = Output(
             keyboard=usb.get_keyboard(),
+            consumer_control=usb.get_consumer_control(),
+        )
+        return LayoutHandler(
+            parsed_layout=parsed_layout,
+            emit_press_callable=output.press,
+            emit_release_callable=output.release,
         )
 
 
